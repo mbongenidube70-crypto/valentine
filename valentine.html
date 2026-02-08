@@ -69,6 +69,24 @@
       box-shadow: 0 12px 28px rgba(255, 77, 109, 0.5);
     }
 
+    .clickable {
+      display: inline-block;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      color: white;
+      padding: 0.75rem 1.5rem;
+      font-size: 1rem;
+      border-radius: 999px;
+      cursor: pointer;
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+      box-shadow: 0 8px 20px rgba(255, 77, 109, 0.4);
+      user-select: none;
+    }
+
+    .clickable:focus {
+      outline: 3px solid rgba(255,77,109,0.15);
+      outline-offset: 4px;
+    }
+
     .hidden {
       display: none;
     }
@@ -122,7 +140,7 @@
       I made this little page because there’s something I want to ask (sorry it took a while to learn the code)…
     </p>
 
-    <button id="revealBtn">Will you be my Valentine?💖</button>
+    <h3 id="revealBtn" class="clickable" tabindex="0" role="button">Will you be my Valentine?💖</h3>
 
     <div id="choices" class="hidden" style="margin-top: 1.5rem; display: flex; gap: 1rem; justify-content: center;">
       <button id="yesBtn">Yes, of course Baby 💖</button>
@@ -132,7 +150,7 @@
 
   <!-- Page 2: Yes Page -->
   <div class="card hidden" id="page-yes">
-    <h1>💖</h1>
+    <h1> Great Choice Princess 💖</h1>
     <p style="white-space: pre-line; font-size: 1.05rem; line-height: 1.7;">
   You deserve a lover who wants you disheveled,
   with everything and all the reasons that wake you up in a haste
@@ -154,7 +172,9 @@
   and brings you hope, coffee, and poetry. — Frida Kahlo
 
   Tatenda Sunshine Gandi-Dube, You have my heart and I have yours,
-  you have my love and I have yours. My forever valentine.
+  you have my love and I have yours. My forever valentine, may we always 
+  choose each other, and show each other the love we deserve, Frida's love.
+  I love you, and I can’t wait to see what life has in store for us.
     </p>
   </div>
 
@@ -172,6 +192,14 @@
       message.innerHTML = "Will you be my Valentine? ❤️";
       revealBtn.classList.add('hidden');
       document.getElementById('choices').classList.remove('hidden');
+    });
+
+    // Support keyboard activation for the H3 acting as a button
+    revealBtn.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        revealBtn.click();
+      }
     });
 
     yesBtn.addEventListener('click', () => {
