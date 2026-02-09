@@ -222,10 +222,40 @@
       spawnHearts();
     });
 
-    noBtn.addEventListener('mouseenter', () => {
+    // Track attempts and change text sequence when user tries to click/hover 'No'
+    let noAttempts = 0;
+    const noTexts = [
+      'No 🙈',
+      "You didn't mean that",
+      'What are you doing ?',
+      'Is you forget September ??',
+      'I know you, this is not you',
+      'Blood in my eyes',
+      'i will choose for you'
+    ];
+
+    function advanceNoAttempt() {
+      // move the button away
       const x = Math.random() * 200 - 100;
       const y = Math.random() * 200 - 100;
       noBtn.style.transform = `translate(${x}px, ${y}px)`;
+
+      // increase attempt count (but don't overflow array)
+      if (noAttempts < noTexts.length - 1) {
+        noAttempts += 1;
+        noBtn.textContent = noTexts[noAttempts];
+      }
+
+      // grow the Yes button progressively
+      const scale = 1 + noAttempts * 0.12;
+      yesBtn.style.transform = `scale(${scale})`;
+    }
+
+    noBtn.addEventListener('mouseenter', advanceNoAttempt);
+    // Also respond to clicks/taps as attempts
+    noBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      advanceNoAttempt();
     });
 
     
